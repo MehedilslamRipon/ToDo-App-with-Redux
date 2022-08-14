@@ -53,6 +53,9 @@ function App() {
 
    return (
       <div className="App">
+         {/* heading */}
+         <h1> Counter Using React.js - useState </h1>
+
          {state.map((count) => (
             <Counter
                key={count.id}
