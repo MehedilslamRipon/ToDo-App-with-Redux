@@ -1,74 +1,21 @@
-import { useState } from 'react';
-import './App.css';
-import Counter from './Components/Counter';
-import Stats from './Components/Stats';
+import { Provider } from 'react-redux';
+import DynamicHooksCounter from './Components/DynamicHooksCounter';
+import HooksCounter from './Components/HooksCounter';
+import store from './redux/store';
 
-const initialState = [
-   {
-      id: 1,
-      count: 0,
-   },
-   {
-      id: 2,
-      count: 0,
-   },
-];
-
-function App() {
-   const [state, setState] = useState(initialState);
-
-   //  total counter
-   const totalCounter = () => {
-      return state.reduce((total, counter) => total + counter.count, 0);
-   };
-
-   // increment
-   const increment = (id) => {
-      const updatedState = state.map((c) => {
-         if (c.id === id) {
-            return {
-               ...c,
-               count: c.count + 1,
-            };
-         }
-         return { ...c };
-      });
-
-      setState(updatedState);
-   };
-
-   // decrement
-   const decrement = (id) => {
-      const updatedState = state.map((c) => {
-         if (c.id === id) {
-            return {
-               ...c,
-               count: c.count - 1,
-            };
-         }
-         return { ...c };
-      });
-      setState(updatedState);
-   };
-
+export default function App() {
    return (
-      <div className="App">
-         {/* heading */}
-         <h1> Counter Using React.js - useState </h1>
+      <Provider store={store}>
+         <div className="w-screen h-screen p-10 bg-gray-100 text-slate-700">
+            <h1 className="max-w-md mx-auto text-center text-2xl font-bold">
+               Basic Counter Application with React-Redux
+            </h1>
 
-         {state.map((count) => (
-            <Counter
-               key={count.id}
-               id={count.id}
-               count={count.count}
-               increment={increment}
-               decrement={decrement}
-            />
-         ))}
-
-         <Stats count={totalCounter()} />
-      </div>
+            <div className="max-w-md mx-auto mt-10 space-y-5">
+               <HooksCounter />
+               <DynamicHooksCounter />
+            </div>
+         </div>
+      </Provider>
    );
 }
-
-export default App;
